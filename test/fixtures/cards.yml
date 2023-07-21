@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: 1
+  address: MyString
+  cvv: 1
+  exp_date: 2023-07-21
+  customer_id: 1
+
+two:
+  number: 1
+  address: MyString
+  cvv: 1
+  exp_date: 2023-07-21
+  customer_id: 1
