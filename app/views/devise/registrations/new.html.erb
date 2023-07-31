@@ -19,7 +19,19 @@
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+
   </div>
+    <%= f.label :name %>
+    <%= f.text_field :name, autofocus: true %>
+
+    <%= f.label :date_of_birth %>
+    <%= f.date_field :date_of_birth %>
+
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number %>
+
+    <%= f.label :address %>
+    <%= f.text_area :address %>
 
   <div class="actions">
     <%= f.submit "Sign up" %>

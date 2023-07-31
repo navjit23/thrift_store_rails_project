@@ -13,7 +13,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   get '/index', to: 'pages#index'
-  root 'pages#index'
+  root 'devise/sessions#new'
+
+
 
 
 end
