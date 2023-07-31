@@ -1,7 +1,6 @@
 class User < ApplicationRecord
-  # Devise modules...
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
-
-  # Additional attributes
-  attr_accessor :name, :date_of_birth, :phone_number, :address
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 end
