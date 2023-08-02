@@ -26,6 +26,11 @@
          <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
         <% end %>
 
+        <%= form_tag products_path, method: :get do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search products..." %>
+          <%= submit_tag "Search" %>
+        <% end %>
+
       </ul>
 
 
