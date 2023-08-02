@@ -3,10 +3,16 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    if params[:search]
-      @products = Product.where("name LIKE ?", "%#{params[:search]}%")
-    else
-      @products = Product.all
+    def index
+      @products = Product.includes(:category)
+
+      if params[:search].present?
+        @products = @products.where("name LIKE ?", "%#{params[:search]}%")
+      end
+
+      if params[:category_id].present?
+        @products = @products.where(category_id: params[:category_id])
+      end
     end
   end
 
