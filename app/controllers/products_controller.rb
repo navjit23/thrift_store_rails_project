@@ -13,6 +13,9 @@ class ProductsController < ApplicationController
       if params[:category_id].present?
         @products = @products.where(category_id: params[:category_id])
       end
+
+      @products = @products.page(params[:page]).per(params[:per_page])
+
     end
   end
 

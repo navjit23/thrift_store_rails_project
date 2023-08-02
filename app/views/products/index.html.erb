@@ -3,19 +3,21 @@
 <h1>Products</h1>
 
 <div id="products">
-  <% if @products.present? %>
-    <h2>Search Results</h2>
-    <ul>
-      <% @products.each do |product| %>
-        <%= render product %>
-      <p>
-        <%= link_to "Show this product", product %>
-      </p>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>No products found.</p>
-  <% end %>
+
+<% if @products.present? %>
+  <h2>Search Results</h2>
+  <ul>
+    <% @products.each do |product| %>
+      <li>
+        <%= product.name %> - <%= product.category.name %>
+      </li>
+    <% end %>
+  </ul>
+  <%= paginate @products %> <!-- Add pagination links here -->
+<% else %>
+  <p>No products found.</p>
+<% end %>
+
 </div>
 
 <%= link_to "New product", new_product_path %>
