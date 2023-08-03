@@ -1,4 +1,24 @@
-<nav>
-  <!-- Other navigation links -->
-  <%= link_to "Shopping Cart", cart_path %>
-</nav>
+<h1>Your Cart</h1>
+<% if @cart_contents.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_contents.each do |product_id, quantity| %>
+        <% product = Product.find(product_id) %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= quantity %></td>
+          <td><%= product.price * quantity %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Your cart is empty.</p>
+<% end %>

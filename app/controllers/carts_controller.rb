@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
   def show
-    @cart = cart
+    @cart_contents = session[:cart] || {} # Retrieve cart contents from session
   end
 end

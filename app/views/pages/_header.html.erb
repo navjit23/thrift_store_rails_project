@@ -19,12 +19,13 @@
           <%= link_to 'Categories', categories_path, class:'nav-link' %>
         </li>
         <li>
-        <li>
         <%= link_to 'Sign In', new_user_session_path, class:'nav-link' %></li>
-        </li>
+
         <% if user_signed_in? %>
-         <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+        <%= link_to "Sign Out", destroy_user_session_path, data: { "turbo-method": :delete } %>
         <% end %>
+
+        <%= link_to "View Cart", cart_path %>
 
         <%= form_tag products_path, method: :get do %>
           <%= text_field_tag :search, params[:search], placeholder: "Search products..." %>

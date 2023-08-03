@@ -10,7 +10,7 @@
     <% @products.each do |product| %>
       <li>
         <%= product.name %> - <%= product.category.name %>
-        <%= link_to "Add to Cart", add_to_cart_product_path(product), method: :post %>
+        <%= link_to "Add to Cart", add_to_cart_product_path(product), data: { "turbo-method": :post } %>
       </li>
     <% end %>
   </ul>

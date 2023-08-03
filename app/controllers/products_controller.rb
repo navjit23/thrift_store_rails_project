@@ -19,18 +19,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  def add_to_cart
-    product = Product.find(params[:id])
-    cart << product.id
-    flash[:notice] = "#{product.name} added to cart."
-    redirect_to products_path
-  end
 
-  private
-
-  def cart
-    session[:cart] ||= []
-  end
 
   # GET /products/1 or /products/1.json
   def show
@@ -93,4 +82,18 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:name, :image, :desc, :category_id)
     end
+
+    def add_to_cart
+      product = Product.find(params[:id])
+      session[:cart] ||= []
+      session[:cart] << product.id
+      redirect_to products_path, notice: "Product added to cart."
+    end
+
+    private
+
+    def cart
+      session[:cart] ||= []
+    end
+
 end
