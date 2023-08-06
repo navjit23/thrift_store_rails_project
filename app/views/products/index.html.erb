@@ -6,14 +6,16 @@
 
 <% if @products.present? %>
   <h2>Search Results</h2>
-  <ul>
+  <ol>
     <% @products.each do |product| %>
+    <div class="container">
       <li>
-        <%= product.name %> - <%= product.category.name %>
+        <%= link_to product.name, product %> - <%= product.category.name %>
         <%= link_to "Add to Cart", add_to_cart_product_path(product), data: { "turbo-method": :post } %>
       </li>
+    </div>
     <% end %>
-  </ul>
+  </ol>
   <%= paginate @products %> <!-- Add pagination links here -->
 <% else %>
   <p>No products found.</p>
