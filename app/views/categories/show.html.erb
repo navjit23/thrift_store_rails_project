@@ -1,6 +1,15 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @category %>
+<% if @products.any?%>
+<h2>Products: </h2>
+<ul>
+  <% @products.each do |product| %>
+    <li><%=link_to product.name, product_path(product)%></li>
+  <%end%>
+</ul>
+<%end%>
+
 
 <div>
   <%= link_to "Edit this category", edit_category_path(@category) %> |
