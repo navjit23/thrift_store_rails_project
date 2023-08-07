@@ -1,6 +1,13 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
 
+  def add_to_cart
+    product = Product.find(params[:id])
+    session[:cart] ||= []
+    session[:cart] << product.id
+    redirect_to cart_path, notice: "Product added to cart."
+  end
+
   # GET /products or /products.json
   def index
     def index
@@ -83,12 +90,7 @@ class ProductsController < ApplicationController
       params.require(:product).permit(:name, :image, :desc, :category_id)
     end
 
-    def add_to_cart
-      product = Product.find(params[:id])
-      session[:cart] ||= []
-      session[:cart] << product.id
-      redirect_to products_path, notice: "Product added to cart."
-    end
+
 
     private
 

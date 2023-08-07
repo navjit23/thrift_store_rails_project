@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :cards
   resources :customers
   resources :admins
-  resource :cart, only: :show
+  resource :cart, only: [:show]
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 

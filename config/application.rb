@@ -12,6 +12,8 @@ module Project
     config.load_defaults 7.0
     config.assets.enabled = true
     config.assets.css_compressor = :sass
+    config.session_store :cookie_store, key: 'cart'
+
 
     # Configuration for the application, engines, and railties goes here.
     #
