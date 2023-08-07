@@ -1,24 +1,13 @@
-<h1>Your Cart</h1>
-<% if @cart_contents.present? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @cart_contents.each do |product_id| %>
-        <% product = Product.find(product_id) %>
-        <tr>
-          <td><%= product.name %></td>
-
-
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<% if session[:cart].present? %>
+  <h2>Cart</h2>
+  <ul>
+    <% session[:cart].each do |product_id, quantity| %>
+      <li>
+        <%= Product.find(product_id).name %> - Quantity: <%= quantity %>
+      </li>
+    <% end %>
+  </ul>
 <% else %>
   <p>Your cart is empty.</p>
 <% end %>
+

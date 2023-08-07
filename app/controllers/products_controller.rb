@@ -3,10 +3,12 @@ class ProductsController < ApplicationController
 
   def add_to_cart
     product = Product.find(params[:id])
-    session[:cart] ||= []
-
-    session[:cart] << product.id
-    redirect_to cart_path, notice: "Product added to cart."
+    cart = session[:cart] || {}  # Initialize an empty hash if cart is nil
+    cart[product.id] ||= 0      # Initialize product quantity if not present
+    cart[product.id] += 1       # Increment product quantity
+    session[:cart] = cart       # Update the cart in the session
+    puts "Cart hash after increment: #{cart.inspect}"  # Add this line for debugging
+    redirect_to cart_path, notice: "Product added to cart"
   end
 
   # GET /products or /products.json
