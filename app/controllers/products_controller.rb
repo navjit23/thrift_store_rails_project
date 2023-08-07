@@ -51,7 +51,10 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
+        # Create the associated Price entry
+        @product.prices.create(price: params[:product][:price], from_date: Time.now, to_date: nil)
+
+        format.html { redirect_to @product, notice: "Product was successfully created." }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,6 +62,7 @@ class ProductsController < ApplicationController
       end
     end
   end
+
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
@@ -83,7 +87,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
