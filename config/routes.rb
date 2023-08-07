@@ -13,11 +13,14 @@ Rails.application.routes.draw do
   resources :cards
   resources :customers
   resources :admins
-  resource :cart, only: [:show]
+  resource :cart, only: [:show] do
+    post 'update_quantity', on: :collection
+    delete 'remove_item', on: :collection
+  end
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  post 'cart/update_quantity', to: 'cart#update_quantity', as: 'update_quantity_cart'
+  #post 'cart/update_quantity', to: 'cart#update_quantity', as: 'update_quantity_cart'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

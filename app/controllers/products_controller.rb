@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
     add_breadcrumb 'Home', :root_path
     add_breadcrumb 'Products', :products_path
 
+
     @products = Product.includes(:category)
 
     if params[:search].present?
@@ -36,7 +37,14 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    add_breadcrumb 'Home', :root_path
+    add_breadcrumb 'Products', :products_path
+    if params[:category_id].present?
+      category = Category.find(params[:category_id])
+      add_breadcrumb category.name, category_path(category)
+    end
     add_breadcrumb 'Product Details', product_path(@product)
+
   end
 
   # GET /products/new
