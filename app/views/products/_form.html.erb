@@ -26,9 +26,14 @@
     <%= form.text_field :desc %>
   </div>
 
-  <div>
-    <%= form.label :category_id, style: "display: block" %>
-    <%= form.number_field :category_id %>
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div >
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "Select a category" %>
   </div>
 
   <div>

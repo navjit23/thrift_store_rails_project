@@ -33,6 +33,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    @price = @product.prices
   end
 
   # GET /products/new
@@ -100,5 +101,9 @@ class ProductsController < ApplicationController
     def cart
       session[:cart] ||= []
     end
+
+    def product_params
+    params.require(:product).permit(:name, :image, :desc, :price, :category_id)
+  end
 
 end
