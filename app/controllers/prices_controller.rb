@@ -21,7 +21,6 @@ class PricesController < ApplicationController
 
   # POST /prices or /prices.json
   def create
-    @price = Price.new(price_params)
 
     respond_to do |format|
       if @price.save

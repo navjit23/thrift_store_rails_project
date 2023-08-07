@@ -10,6 +10,9 @@ gem 'jquery-rails'
 gem 'activeadmin'
 gem 'sassc'
 gem 'sassc-rails'
+gem 'breadcrumbs_on_rails'
+
+
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.5"

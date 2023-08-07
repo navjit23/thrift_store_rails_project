@@ -1,40 +1,56 @@
 class ProductsController < ApplicationController
+
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def add_to_cart
     product = Product.find(params[:id])
-    session[:cart] ||= []
-    session[:cart] << product.id
-    redirect_to cart_path, notice: "Product added to cart."
+    cart = session[:cart] || {}  # Initialize an empty hash if cart is nil
+    cart[product.id] ||= 0      # Initialize product quantity if not present
+    cart[product.id] += 1       # Increment product quantity
+    session[:cart] = cart       # Update the cart in the session
+    puts "Cart hash after increment: #{cart.inspect}"  # Add this line for debugging
+    redirect_to cart_path, notice: "Product added to cart"
   end
 
   # GET /products or /products.json
   def index
-    def index
-      @products = Product.includes(:category)
+    add_breadcrumb 'Home', :root_path
+    add_breadcrumb 'Products', :products_path
 
-      if params[:search].present?
-        @products = @products.where("name LIKE ?", "%#{params[:search]}%")
-      end
 
-      if params[:category_id].present?
-        @products = @products.where(category_id: params[:category_id])
-      end
+    @products = Product.includes(:category)
 
-      @products = @products.page(params[:page]).per(params[:per_page])
-
+    if params[:search].present?
+      @products = @products.where("name LIKE ?", "%#{params[:search]}%")
     end
+
+    if params[:category_id].present?
+      @products = @products.where(category_id: params[:category_id])
+    end
+
+    @products = @products.page(params[:page]).per(params[:per_page])
+
+
   end
 
 
 
   # GET /products/1 or /products/1.json
   def show
+    add_breadcrumb 'Home', :root_path
+    add_breadcrumb 'Products', :products_path
+    if params[:category_id].present?
+      category = Category.find(params[:category_id])
+      add_breadcrumb category.name, category_path(category)
+    end
+    add_breadcrumb 'Product Details', product_path(@product)
+
   end
 
   # GET /products/new
   def new
     @product = Product.new
+    add_breadcrumb 'New Product', new_product_path
   end
 
   # GET /products/1/edit
@@ -79,7 +95,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
@@ -97,5 +113,9 @@ class ProductsController < ApplicationController
     def cart
       session[:cart] ||= []
     end
+
+    def product_params
+    params.require(:product).permit(:name, :image, :desc, :price, :category_id)
+  end
 
 end
