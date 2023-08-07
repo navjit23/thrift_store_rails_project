@@ -1,9 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @product %>
-<% @price.each do |price|%>
-  <%= price.price%>
-<%end%>
+
 
 <div>
   <%= link_to "Edit this product", edit_product_path(@product) %> |

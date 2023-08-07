@@ -37,7 +37,6 @@ class ProductsController < ApplicationController
   # GET /products/1 or /products/1.json
   def show
     add_breadcrumb 'Product Details', product_path(@product)
-    @price = @product.prices
   end
 
   # GET /products/new
@@ -56,10 +55,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        # Create the associated Price entry
-        @product.prices.create(price: params[:product][:price], from_date: Time.now, to_date: nil)
-
-        format.html { redirect_to @product, notice: "Product was successfully created." }
+        format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -67,7 +63,6 @@ class ProductsController < ApplicationController
       end
     end
   end
-
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
