@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+
   before_action :set_product, only: %i[ show edit update destroy ]
 
   def add_to_cart
@@ -13,32 +14,36 @@ class ProductsController < ApplicationController
 
   # GET /products or /products.json
   def index
-    def index
-      @products = Product.includes(:category)
+    add_breadcrumb 'Home', :root_path
+    add_breadcrumb 'Products', :products_path
 
-      if params[:search].present?
-        @products = @products.where("name LIKE ?", "%#{params[:search]}%")
-      end
+    @products = Product.includes(:category)
 
-      if params[:category_id].present?
-        @products = @products.where(category_id: params[:category_id])
-      end
-
-      @products = @products.page(params[:page]).per(params[:per_page])
-
+    if params[:search].present?
+      @products = @products.where("name LIKE ?", "%#{params[:search]}%")
     end
+
+    if params[:category_id].present?
+      @products = @products.where(category_id: params[:category_id])
+    end
+
+    @products = @products.page(params[:page]).per(params[:per_page])
+
+
   end
 
 
 
   # GET /products/1 or /products/1.json
   def show
+    add_breadcrumb 'Product Details', product_path(@product)
     @price = @product.prices
   end
 
   # GET /products/new
   def new
     @product = Product.new
+    add_breadcrumb 'New Product', new_product_path
   end
 
   # GET /products/1/edit
