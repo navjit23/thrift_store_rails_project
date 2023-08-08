@@ -30,8 +30,20 @@
     <%= f.label :phone_number %>
     <%= f.text_field :phone_number %>
 
+  <div class="field">
     <%= f.label :address %>
-    <%= f.text_area :address %>
+    <%= f.text_field :address, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :postal %>
+    <%= f.text_field :postal %>
+  </div>
+
+  <div class="field">
+    <%= f.label :province %>
+    <%= f.text_field :province %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
