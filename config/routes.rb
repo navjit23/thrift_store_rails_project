@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   resources :orders
   resources :products_ordereds
   resources :prices
@@ -15,13 +17,13 @@ Rails.application.routes.draw do
   resources :admins
   resource :cart, only: [:show] do
     post 'update_quantity', on: :collection
-    delete 'remove_item', on: :collection
     member do
       get :check_out
     end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  delete 'cart/remove_item', to: 'carts#remove_item', as: 'remove_item_cart'
 
   #post 'cart/update_quantity', to: 'cart#update_quantity', as: 'update_quantity_cart'
 

@@ -1,15 +1,9 @@
 ActiveAdmin.register Product do
-  permit_params :name, :desc, :price, :category_id, :image
+  actions :index, :edit, :update, :create, :destroy, :new
+  permit_params :name, :desc, :price, :image, :category_id
 
-  form do |f|
-    f.semantic_errors
-    f.inputs do
-      f.input :name
-      f.input :desc
-      f.input :price
-      f.input :category
-      f.input :image, as: :file
-    end
-    f.actions
-  end
+  filter :name
+  filter :desc
+  filter :price
+  filter :category_id
 end
