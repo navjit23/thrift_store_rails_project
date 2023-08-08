@@ -30,8 +30,20 @@
     <%= f.label :phone_number %>
     <%= f.text_field :phone_number %>
 
+  <div class="field">
     <%= f.label :address %>
-    <%= f.text_area :address %>
+    <%= f.text_field :address, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :postal %>
+    <%= f.text_field :postal %>
+  </div>
+
+  <div class="field">
+    <%= f.label :province %>
+    <%= f.select :province, options_for_select(["Newfoundland and Labrador", "Nova Scotia", "Prince Edward Island", "New Brunswick", "Ontario", "Quebec", "Manitoba", "Saskatchewan", "Alberta", "British Columbia"], @user.province), prompt: "Select Province" %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>

@@ -26,12 +26,13 @@
         <td><%= number_to_currency(product.price) %></td>
         <td><%= number_to_currency(product.price * quantity) %></td>
         <td>
-          <%= button_to 'Remove', remove_item_cart_path(product_id), :method => :delete %>
+          <%= link_to 'Remove', remove_item_cart_path(product_id), data: { "turbo-method": :delete } , class:'nav-link' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= link_to "Proceed to Checkout", check_out_cart_path, class: "btn btn-primary" %>
 
 <%= link_to 'Continue Shopping', products_path %>
 

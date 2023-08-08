@@ -1,0 +1,63 @@
+
+<h1>Your Order</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total Price</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <% total_price = 0 %>
+    <% @cart_contents.each do |product_id, quantity| %>
+      <% product = Product.find(product_id) %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= quantity %></td>
+        <td><%= number_to_currency(product.price) %></td>
+        <td><%= number_to_currency(product.price * quantity) %></td>
+        <% total_price += (product.price * quantity) %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="container">
+Total: <%=  number_to_currency(total_price) %>
+GST: <%= number_to_currency(CartsController::GST * total_price /100 )%>
+<% if user_signed_in? %>
+  HST/PST: <%= CartsController::State_tax[current_user.province] %>
+<% else%>
+  HST/PST: <%= number_to_currency(CartsController::State_tax[1] *total_price / 100)%>
+<%end%>
+</div>
+
+<div class="container">
+<% if user_signed_in? %>
+<%= form_tag check_out_cart_path, method: :post do %>
+    <div class="form-group">
+      <%= label_tag :address, 'Address' %>
+      <%= text_field_tag :address, current_user.address, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= label_tag :postal, 'Postal Code' %>
+      <%= text_field_tag :postal, current_user.postal, class: 'form-control' %>
+    </div>
+<% address1 = current_user.address %>
+<%= address1%>
+    <div class="form-group">
+      <%= label_tag :province, 'Province' %>
+      <%= select_tag :province, options_for_select(["Newfoundland and Labrador", "Nova Scotia", "Prince Edward Island", "New Brunswick", "Ontario", "Quebec", "Manitoba", "Saskatchewan", "Alberta", "British Columbia"], current_user.province), class: 'form-control' %>
+    </div>
+
+    <%= submit_tag 'Place Order', class: 'btn btn-primary' %>
+  <% end %>
+<% else%>
+<%end%>
+
+</div>
