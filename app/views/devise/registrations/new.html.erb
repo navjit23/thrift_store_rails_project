@@ -42,7 +42,7 @@
 
   <div class="field">
     <%= f.label :province %>
-    <%= f.text_field :province %>
+    <%= f.select :province, options_for_select(["Newfoundland and Labrador", "Nova Scotia", "Prince Edward Island", "New Brunswick", "Ontario", "Quebec", "Manitoba", "Saskatchewan", "Alberta", "British Columbia"], @user.province), prompt: "Select Province" %>
   </div>
 
   <div class="actions">

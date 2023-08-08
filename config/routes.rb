@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   resource :cart, only: [:show] do
     post 'update_quantity', on: :collection
     delete 'remove_item', on: :collection
+    member do
+      get :check_out
+    end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
