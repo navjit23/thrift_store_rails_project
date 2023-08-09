@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   resources :orders
+  resources :addresses
   resources :products_ordereds
   resources :prices
   resources :products do
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
     post 'update_quantity', on: :collection
     member do
       get :check_out
+      post 'update_address'
     end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config

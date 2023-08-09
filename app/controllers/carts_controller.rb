@@ -17,7 +17,17 @@ class CartsController < ApplicationController
     "Yukon" => 0
   }
 
+  def update_address
+    @address = params[:address]
+    @postal_code = params[:postal_code]
+    @province = params[:province]
 
+    session[:address] = @address
+    session[:postal_code] = @postal_code
+    session[:province] = @province
+
+    redirect_to check_out_cart_path
+  end
 
 
   def update_quantity
@@ -47,7 +57,13 @@ class CartsController < ApplicationController
 
   def check_out
     @cart_contents = session[:cart] || {}
+    @address = session[:address]
+    @postal_code = session[:postal_code]
+    @province = session[:province]
 
 
+  end
+  def checkout_params
+    params.require(:checkout).permit(:address, :postal_code, :province)
   end
 end
