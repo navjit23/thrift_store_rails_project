@@ -8,4 +8,7 @@ class User < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     []
   end
+  validates :name, presence: true, length: { minimum: 3 }
+  validates :email, presence: true, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+
 end

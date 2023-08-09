@@ -4,4 +4,5 @@ class Category < ApplicationRecord
   end
 
   has_many :products
+  validates :name, presence: true
 end
