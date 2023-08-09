@@ -26,15 +26,7 @@
   </tbody>
 </table>
 
-<div class="container">
-Total: <%=  number_to_currency(total_price) %>
-GST: <%= number_to_currency(CartsController::GST * total_price /100 )%>
-<% if user_signed_in? %>
-  HST/PST: <%= CartsController::State_tax[current_user.province] %>
-<% else%>
-  HST/PST: <%= number_to_currency(CartsController::State_tax[1] *total_price / 100)%>
-<%end%>
-</div>
+
 
 <div class="container">
 <% if user_signed_in? %>
@@ -61,3 +53,23 @@ GST: <%= number_to_currency(CartsController::GST * total_price /100 )%>
 <%end%>
 
 </div>
+
+<div class="container">
+Total: <%=  number_to_currency(total_price) %>
+GST: <%= number_to_currency(CartsController::GST * total_price /100 )%>
+<% if user_signed_in? %>
+  HST/PST: <%= CartsController::State_tax[current_user.province] %>
+<% else%>
+  HST/PST: <%= number_to_currency(CartsController::State_tax[@province] *total_price / 100)%>
+<%end%>
+</div>
+
+
+<% if @address.present? %>
+  <h3>Shipping Address</h3>
+  <p><strong>Address:</strong> <%= @address %></p>
+  <p><strong>Postal Code:</strong> <%= @postal_code %></p>
+  <p><strong>Province:</strong> <%= @province %></p>
+<% else%>
+  <%= render "address_form" %>
+<% end %>

@@ -11,7 +11,7 @@ gem 'activeadmin'
 gem 'sassc'
 gem 'sassc-rails'
 gem 'breadcrumbs_on_rails'
-
+gem 'faker'
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
