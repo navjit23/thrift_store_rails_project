@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   delete 'cart/remove_item', to: 'carts#remove_item', as: 'remove_item_cart'
+  post 'cart/place_order', to: 'carts#place_order', as: :place_order
 
   #post 'cart/update_quantity', to: 'cart#update_quantity', as: 'update_quantity_cart'
 

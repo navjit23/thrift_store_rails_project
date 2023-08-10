@@ -26,44 +26,14 @@
   </tbody>
 </table>
 
-
-
-<div class="container">
-<% if user_signed_in? %>
-<%= form_tag check_out_cart_path, method: :post do %>
-    <div class="form-group">
-      <%= label_tag :address, 'Address' %>
-      <%= text_field_tag :address, current_user.address, class: 'form-control' %>
-    </div>
-
-    <div class="form-group">
-      <%= label_tag :postal, 'Postal Code' %>
-      <%= text_field_tag :postal, current_user.postal, class: 'form-control' %>
-    </div>
-<% address1 = current_user.address %>
-<%= address1%>
-    <div class="form-group">
-      <%= label_tag :province, 'Province' %>
-      <%= select_tag :province, options_for_select(["Newfoundland and Labrador", "Nova Scotia", "Prince Edward Island", "New Brunswick", "Ontario", "Quebec", "Manitoba", "Saskatchewan", "Alberta", "British Columbia"], current_user.province), class: 'form-control' %>
-    </div>
-
-    <%= submit_tag 'Place Order', class: 'btn btn-primary' %>
-  <% end %>
-<% else%>
-<%end%>
-
-</div>
-
 <div class="container">
 <% if @address.present? %>
 
   GST: <%= number_to_currency(CartsController::GST * total_price /100 )%>
   <br>
-  <% if user_signed_in? %>
-    HST/PST: <%= CartsController::State_tax[current_user.province] %>
-  <% else%>
+
     HST/PST: <%= number_to_currency(CartsController::State_tax[@province] *total_price / 100)%>
-  <%end%>
+
   <br>
   <br>
   Total: <%=  number_to_currency(total_price +CartsController::State_tax[@province] *total_price / 100 + CartsController::GST * total_price /100 ) %>
@@ -75,7 +45,13 @@
   <p><strong>Address:</strong> <%= @address %></p>
   <p><strong>Postal Code:</strong> <%= @postal_code %></p>
   <p><strong>Province:</strong> <%= @province %></p>
+
+  <%= form_tag place_order_path, method: :post do %>
+  <%= submit_tag "Place Order" %>
+<% end %>
+
   </div>
 <% else%>
   <%= render "address_form" %>
 <% end %>
+

@@ -6,4 +6,5 @@ ActiveAdmin.register Product do
   filter :desc
   filter :price
   filter :category_id
+
 end
