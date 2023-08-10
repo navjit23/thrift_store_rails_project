@@ -55,22 +55,22 @@
 </div>
 
 <div class="container">
-
-GST: <%= number_to_currency(CartsController::GST * total_price /100 )%>
-<br>
-<% if user_signed_in? %>
-  HST/PST: <%= CartsController::State_tax[current_user.province] %>
-<% else%>
-  HST/PST: <%= number_to_currency(CartsController::State_tax[@province] *total_price / 100)%>
-<%end%>
-<br>
-<br>
-Total: <%=  number_to_currency(total_price +CartsController::State_tax[@province] *total_price / 100 + CartsController::GST * total_price /100 ) %>
-</div>
-
-
 <% if @address.present? %>
-<div class="container">
+
+  GST: <%= number_to_currency(CartsController::GST * total_price /100 )%>
+  <br>
+  <% if user_signed_in? %>
+    HST/PST: <%= CartsController::State_tax[current_user.province] %>
+  <% else%>
+    HST/PST: <%= number_to_currency(CartsController::State_tax[@province] *total_price / 100)%>
+  <%end%>
+  <br>
+  <br>
+  Total: <%=  number_to_currency(total_price +CartsController::State_tax[@province] *total_price / 100 + CartsController::GST * total_price /100 ) %>
+  </div>
+
+
+  <div class="container">
   <h3>Shipping Address</h3>
   <p><strong>Address:</strong> <%= @address %></p>
   <p><strong>Postal Code:</strong> <%= @postal_code %></p>

@@ -8,6 +8,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new(user_params)
 
     if @user.save
+      redirect_to root_path, notice: "User successfully created!"
+
       # Redirect or perform other actions
     else
       # Handle errors and render the form again
@@ -15,11 +17,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :name, :date_of_birth, :phone_number, :address)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :date_of_birth, :phone_number, :address, :postal, :province)
   end
+
 
   # GET /resource/sign_up
   # def new
