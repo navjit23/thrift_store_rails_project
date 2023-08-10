@@ -1,6 +1,6 @@
 <%= form_tag update_address_cart_path, method: :post do %>
   <%= label_tag :address, "Address" %>
-  <%= text_field_tag :address, @address %>
+  <%= text_field_tag :address, @address ,required: true %>
 
   <%= label_tag :postal_code, "Postal Code" %>
   <%= text_field_tag :postal_code, @postal_code %>
